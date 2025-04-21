@@ -1,11 +1,18 @@
-FROM golang:1.24
+FROM golang:1.24.2
+
+ENV PORT=8080
 
 WORKDIR /app
 
+COPY go.mod ./
+RUN go mod download
+
 COPY . .
 
-RUN go build -o phoxy
+WORKDIR /app/cmd
 
-CMD ["./phoxy"]
+RUN go build -o /phoxy
 
 EXPOSE 8080
+
+ENTRYPOINT [ "/phoxy" ]
