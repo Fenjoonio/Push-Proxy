@@ -7,6 +7,7 @@ import (
 )
 
 func SetupRoutes() {
-		http.HandleFunc("/push/send", handlers.SendHandler)
-		http.HandleFunc("/push/getExpoPushToken", handlers.GetTokenHandler)	
+	http.HandleFunc("/push/send", handlers.SendHandler)
+	http.HandleFunc("/push/getExpoPushToken", handlers.GetTokenHandler)
+	http.HandleFunc("/push/updateDeviceToken", handlers.UpdateTokenHandler)
 }

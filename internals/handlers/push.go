@@ -8,6 +8,7 @@ import (
 const (
 	expoSendAPI         = "https://exp.host/--/api/v2/push/send"
 	expoGetPushTokenAPI = "https://exp.host/--/api/v2/push/getExpoPushToken"
+	expoUpdateTokenAPI  = "https://exp.host/--/api/v2/push/updateDeviceToken"
 )
 
 func createProxyHandler(targetURL string) http.HandlerFunc {
@@ -46,3 +47,4 @@ func createProxyHandler(targetURL string) http.HandlerFunc {
 
 var SendHandler = createProxyHandler(expoSendAPI)
 var GetTokenHandler = createProxyHandler(expoGetPushTokenAPI)
+var UpdateTokenHandler = createProxyHandler(expoUpdateTokenAPI)
