@@ -12,6 +12,6 @@ import (
 func main() {
 	routes.SetupRoutes()
 
-	log.Println("Proxy server running on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Println("Proxy server running on :3000")
+	log.Fatal(http.ListenAndServe(":3000", nil))
 }
