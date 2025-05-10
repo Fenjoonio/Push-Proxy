@@ -17,35 +17,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PushHandler(w http.ResponseWriter, r *http.Request) {
-	client := &http.Client{}
+	fmt.Fprintf(w, "Push recieved")
 
-	req, err := http.NewRequest(r.Method, "https://exp.host/--/api/v2/push/send", r.Body)
-	if err != nil {
-		http.Error(w, "Failed to create request", http.StatusInternalServerError)
-		return
-	}
-
-	for name, values := range r.Header {
-		for _, value := range values {
-			req.Header.Add(name, value)
-		}
-	}
-
-	resp, err := client.Do(req)
-	if err != nil {
-		http.Error(w, "Failed to contact API", http.StatusBadGateway)
-		return
-	}
-	defer resp.Body.Close()
-
-	for name, values := range resp.Header {
-		for _, value := range values {
-			w.Header().Add(name, value)
-		}
-	}
-
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
 }
 
 func createProxyHandler(targetURL string) http.HandlerFunc {
