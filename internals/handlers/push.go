@@ -19,6 +19,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 func PushHandler(w http.ResponseWriter, r *http.Request) {
 	client := &http.Client{}
 
+	fmt.Print("im in push handler")
+
 	req, err := http.NewRequest(r.Method, expoSendAPI, r.Body)
 	if err != nil {
 		http.Error(w, "Failed to create request", http.StatusInternalServerError)
@@ -37,6 +39,7 @@ func PushHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer resp.Body.Close()
+	fmt.Print("im after request")
 
 	for name, values := range resp.Header {
 		for _, value := range values {
@@ -45,8 +48,15 @@ func PushHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(resp.StatusCode)
+	fmt.Print("THE END1...")
+
 	io.Copy(w, resp.Body)
+	fmt.Print("THE END2...")
+
 	fmt.Fprintf(w, "Push recieved")
+
+	fmt.Print("THE END3...")
+
 }
 
 func createProxyHandler(targetURL string) http.HandlerFunc {
