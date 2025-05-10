@@ -11,6 +11,10 @@ const (
 	expoUpdateTokenAPI  = "https://exp.host/--/api/v2/push/updateDeviceToken"
 )
 
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome to the Home Page!")
+}
+
 func createProxyHandler(targetURL string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		client := &http.Client{}
