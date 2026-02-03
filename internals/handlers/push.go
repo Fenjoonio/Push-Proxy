@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -27,6 +28,8 @@ func createProxyHandler(targetURL string) http.HandlerFunc {
 			}
 		}
 
+		log.Println("Headers: ", req.Header)
+
 		resp, err := client.Do(req)
 		if err != nil {
 			http.Error(w, "Failed to contact API", http.StatusBadGateway)
@@ -34,11 +37,16 @@ func createProxyHandler(targetURL string) http.HandlerFunc {
 		}
 		defer resp.Body.Close()
 
+		log.Println("Response Headers: ", resp.Header)
+
 		for name, values := range resp.Header {
 			for _, value := range values {
 				w.Header().Add(name, value)
 			}
 		}
+
+		log.Println("Response Body: ", resp.Body)
+		log.Println("Response Status: ", resp.Status)
 
 		w.WriteHeader(resp.StatusCode)
 		io.Copy(w, resp.Body)
