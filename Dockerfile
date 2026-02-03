@@ -1,6 +1,6 @@
 FROM golang:1.24.2
 
-ENV PORT=8080
+ENV PORT=3000
 
 WORKDIR /app
 
@@ -13,6 +13,6 @@ WORKDIR /app/cmd
 
 RUN go build -o /phoxy
 
-EXPOSE 8080
+EXPOSE 3000
 
 ENTRYPOINT [ "/phoxy" ]
